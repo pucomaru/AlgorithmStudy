@@ -12,8 +12,6 @@
 
 <details>
 <summary>🔽 문제 출처 사이트 </summary>
-  
-### 주차 상관없이 풀이 (추가 구성)
 | 이름 | 링크 |
 |-----------|-----------|
 | 백준 | [BOJ](https://www.acmicpc.net/) |
