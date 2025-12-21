@@ -8,6 +8,7 @@
 |------|-----------|------|
 | 1 | 컨베이어 벨트 위의 로봇 | [BOJ 20055](https://www.acmicpc.net/problem/20055) |
 | 2 | 연구소 3 | [BOJ 17142](https://www.acmicpc.net/problem/17142) |
+| 3 | 사다리 조작 | [BOJ 15684](https://www.acmicpc.net/problem/15684) |
 
 ---
 
