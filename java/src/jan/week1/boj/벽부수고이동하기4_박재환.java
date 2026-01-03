@@ -12,12 +12,28 @@ public class 벽부수고이동하기4_박재환 {
     }
     static StringTokenizer st;
     static int n, m;
-    static int[][] map;
+    static char[][] map;
     static void init() throws IOException {
         st = new StringTokenizer(br.readLine().trim());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        map = new int[n][m];
 
+        map = new char[n][m];
+        for(int x=0; x<n; x++) {
+            String input = br.readLine().trim();
+            for(int y=0; y<m; y++) {
+                map[x][y] = input.charAt(y);
+            }
+        }
+
+        for(char[] arr : map) System.out.println(Arrays.toString(arr));
+    }
+
+    static void findEmptySpace() {
+        for(int x=0; x<n; x++) {
+            for(int y=0; y<m; y++) {
+
+            }
+        }
     }
 }
