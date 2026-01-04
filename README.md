@@ -8,8 +8,8 @@
 |------|-----------|------|
 | 1 | 커피숍2 | [BOJ 1275](https://www.acmicpc.net/problem/1275) |
 | 2 | 트리와 쿼리 | [BOJ 15681](https://www.acmicpc.net/problem/15681) |
-| 3 | 외판원 순 | [BOJ 2098](https://www.acmicpc.net/problem/2098) |
-| 4 | 벽 타 | [BOJ 23563](https://www.acmicpc.net/problem/23563) |
+| 3 | 외판원 순회 | [BOJ 2098](https://www.acmicpc.net/problem/2098) |
+| 4 | 벽 타기 | [BOJ 23563](https://www.acmicpc.net/problem/23563) |
 | 5 | 가희의 고구마 먹방 | [BOJ 21772](https://www.acmicpc.net/problem/21772) |
 
 ---
