@@ -6,7 +6,7 @@
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 피리 부는 사나이 | [BOJ 16727](https://www.acmicpc.net/problem/16727) |
+| 1 | 피리 부는 사나이 | [BOJ 16724](https://www.acmicpc.net/problem/16724) |
 | 2 | 1의 개수 세기 | [BOJ 9527](https://www.acmicpc.net/problem/9527) |
 | 3 | 빙산 | [BOJ 2573](https://www.acmicpc.net/problem/2573) |
 | 4 | 계란으로 계란치기 | [BOJ 16987](https://www.acmicpc.net/problem/16987) |
