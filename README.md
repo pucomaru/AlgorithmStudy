@@ -24,6 +24,7 @@
 | 프로그래머스 | [Programmers](https://programmers.co.kr/) |
 | 코드트리 | [CodeTree](https://www.codetree.ai/ko/trail-info) |
 | SWEA | [SWEA](https://swexpertacademy.com/main/main.do) |
+| LeetCode | [LeetCode](https://leetcode.com/) |
 </details>
 
 ### 📅 지난 스터디 기록
