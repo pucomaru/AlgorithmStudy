@@ -30,8 +30,8 @@ public class 일의개수세기_박재환 {
     }
 
     static long countOneBits(long num, int k) {
-        long half = 1L << k;
-        long block = 1L << (k+1);
+        long half = 1L << k;        // 1이 반복되는 횟수
+        long block = 1L << (k+1);   // 한 번의 전체 반복 길이
 
         long total = num + 1;
         long full = total / block;
