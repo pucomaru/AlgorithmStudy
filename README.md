@@ -2,15 +2,15 @@
 
 ## 📅 1월 문제 목록
 
-### ✅ 2주차
+### ✅ 3주차
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 커피숍2 | [BOJ 1275](https://www.acmicpc.net/problem/1275) |
-| 2 | 트리와 쿼리 | [BOJ 15681](https://www.acmicpc.net/problem/15681) |
-| 3 | 외판원 순회 | [BOJ 2098](https://www.acmicpc.net/problem/2098) |
-| 4 | 벽 타기 | [BOJ 23563](https://www.acmicpc.net/problem/23563) |
-| 5 | 가희의 고구마 먹방 | [BOJ 21772](https://www.acmicpc.net/problem/21772) |
+| 1 | 피리 부는 사나이 | [BOJ 16727](https://www.acmicpc.net/problem/16727) |
+| 2 | 1의 개수 세기 | [BOJ 9527](https://www.acmicpc.net/problem/9527) |
+| 3 | 빙산 | [BOJ 2573](https://www.acmicpc.net/problem/2573) |
+| 4 | 계란으로 계란치기 | [BOJ 16987](https://www.acmicpc.net/problem/16987) |
+| 5 | 호텔 | [BOJ 1106](https://www.acmicpc.net/problem/1106) |
 
 ---
 
@@ -64,6 +64,18 @@
 | 3 | 줄세우기 | [BOJ 2631](https://www.acmicpc.net/problem/2631) |
 | 4 | 공유기 설치 | [BOJ 2110](https://www.acmicpc.net/problem/2110) |
 | 5 | 택배 하차 | [CodeTree 택배하차](https://www.codetree.ai/ko/frequent-problems/samsung-sw/problems/delivery-service/description) |
+
+---
+
+### ✅ 2주차
+
+| 번호 | 문제 이름 | 링크 |
+|------|-----------|------|
+| 1 | 커피숍2 | [BOJ 1275](https://www.acmicpc.net/problem/1275) |
+| 2 | 트리와 쿼리 | [BOJ 15681](https://www.acmicpc.net/problem/15681) |
+| 3 | 외판원 순회 | [BOJ 2098](https://www.acmicpc.net/problem/2098) |
+| 4 | 벽 타기 | [BOJ 23563](https://www.acmicpc.net/problem/23563) |
+| 5 | 가희의 고구마 먹방 | [BOJ 21772](https://www.acmicpc.net/problem/21772) |
 
 ---
 
