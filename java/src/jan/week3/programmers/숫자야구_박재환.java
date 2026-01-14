@@ -47,6 +47,10 @@ public class 숫자야구_박재환 {
         }
     }
 
+    /**
+     * 제출 함수로부터 얻은 결과값을 활용하여
+     * 정답이 될 수 있는 password 범위를 줄여나간다.
+     */
     void filterIncorrectPassword(String result, String submitPassword) {
         List<String> filteredPassword = new ArrayList<>();
         int strikeCount = result.charAt(0) - '0';
@@ -59,6 +63,13 @@ public class 숫자야구_박재환 {
         passwords = filteredPassword;
     }
 
+    /**
+     * 제출한 비밀번호화, 비교하고자 하는 비밀번호를 비교한다.
+     * => 값과 자리가 모두 같다. : S++
+     * => 값은 같지만 자리가 다르다 : B++
+     * ---
+     * 제출함수로부터 얻은 결과와 동일한 결과를 갖는 비밀번호들만 필터링한다.
+     */
     boolean compareTwoPassword(String candidatePassword, String validationPassword, int strikeCount, int ballCount) {
         int s=0, b=0;
 
