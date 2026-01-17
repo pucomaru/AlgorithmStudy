@@ -38,6 +38,7 @@ public class 트리와쿼리_이다예 {
             int num1 = Integer.parseInt(st.nextToken());
             int num2 = Integer.parseInt(st.nextToken());
 
+            //
             graph[i]
         }
     }
