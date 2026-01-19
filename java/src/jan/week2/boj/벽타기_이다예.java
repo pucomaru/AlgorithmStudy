@@ -61,10 +61,11 @@ public class 벽타기_이다예 {
                 if(!visit[search]){
                     // 방문하지 않은 노드만 큐에 추가
                     // 방문하지 않았던 큐를 추가하되, 거리는 현재의 +1만큼 추가
-                    q.offer(new int {search,poll[1]+1})
+                    q.offer(new int[] {search,poll[1]+1});
                 }
 
             }
         }
+        return -1;
     }
 }
