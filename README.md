@@ -2,15 +2,15 @@
 
 ## 📅 1월 문제 목록
 
-### ✅ 3주차
+### ✅ 4주차
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 피리 부는 사나이 | [BOJ 16724](https://www.acmicpc.net/problem/16724) |
-| 2 | 1의 개수 세기 | [BOJ 9527](https://www.acmicpc.net/problem/9527) |
-| 3 | 빙산 | [BOJ 2573](https://www.acmicpc.net/problem/2573) |
-| 4 | 계란으로 계란치기 | [BOJ 16987](https://www.acmicpc.net/problem/16987) |
-| 5 | 호텔 | [BOJ 1106](https://www.acmicpc.net/problem/1106) |
+| 1 | 철로 | [BOJ 13334](https://www.acmicpc.net/problem/13334) |
+| 2 | 너 봄에는 캡사이신이 맛있단다 | [BOJ 15824](https://www.acmicpc.net/problem/15824) |
+| 3 | N포 | [BOJ 16565](https://www.acmicpc.net/problem/16565) |
+| 4 | GCD(n, k) = 1 | [BOJ 11689](https://www.acmicpc.net/problem/11689) |
+| 5 | 수열과 쿼리 16 | [BOJ 14428](https://www.acmicpc.net/problem/14428) |
 
 ---
 
@@ -77,6 +77,18 @@
 | 3 | 외판원 순회 | [BOJ 2098](https://www.acmicpc.net/problem/2098) |
 | 4 | 벽 타기 | [BOJ 23563](https://www.acmicpc.net/problem/23563) |
 | 5 | 가희의 고구마 먹방 | [BOJ 21772](https://www.acmicpc.net/problem/21772) |
+
+---
+
+### ✅ 3주차
+
+| 번호 | 문제 이름 | 링크 |
+|------|-----------|------|
+| 1 | 피리 부는 사나이 | [BOJ 16724](https://www.acmicpc.net/problem/16724) |
+| 2 | 1의 개수 세기 | [BOJ 9527](https://www.acmicpc.net/problem/9527) |
+| 3 | 빙산 | [BOJ 2573](https://www.acmicpc.net/problem/2573) |
+| 4 | 계란으로 계란치기 | [BOJ 16987](https://www.acmicpc.net/problem/16987) |
+| 5 | 호텔 | [BOJ 1106](https://www.acmicpc.net/problem/1106) |
 
 ---
 
