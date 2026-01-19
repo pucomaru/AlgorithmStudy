@@ -8,7 +8,7 @@
 |------|-----------|------|
 | 1 | 철로 | [BOJ 13334](https://www.acmicpc.net/problem/13334) |
 | 2 | 너 봄에는 캡사이신이 맛있단다 | [BOJ 15824](https://www.acmicpc.net/problem/15824) |
-| 3 | N포 | [BOJ 16565](https://www.acmicpc.net/problem/16565) |
+| 3 | N포커 | [BOJ 16565](https://www.acmicpc.net/problem/16565) |
 | 4 | GCD(n, k) = 1 | [BOJ 11689](https://www.acmicpc.net/problem/11689) |
 | 5 | 수열과 쿼리 16 | [BOJ 14428](https://www.acmicpc.net/problem/14428) |
 
