@@ -2,7 +2,7 @@ def solution():
     import sys
     input = sys.stdin.readline
 
-    INF = 10**6 + 1
+    INF = 10**9 + 1
 
     n = int(input())
     arr = list(map(int, input().split()))
