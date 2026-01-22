@@ -9,7 +9,6 @@ public class 중량제한_박재환 {
         init(br);
         br.close();
     }
-    static final int MIN = 0;
     static final int MAX = 1_000_000_005;
 
     static int n;
@@ -47,7 +46,6 @@ public class 중량제한_박재환 {
     static long findMaxRoute() {
         PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Integer.compare(b[1], a[1]));
         int[] maxWeight = new int[n+1];
-        Arrays.fill(maxWeight, MIN);
 
         // 초기 위치 설정
         maxWeight[s] = MAX;     // 최대 중량으로 출발
