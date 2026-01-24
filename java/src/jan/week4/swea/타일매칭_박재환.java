@@ -62,7 +62,7 @@ public class 타일매칭_박재환 {
     public static void main(String[] args) throws Exception {
         int T, MARK;
 
-        System.setIn(new java.io.FileInputStream("C:\\Users\\doorm\\Desktop\\Algorithm\\java\\src\\jan\\week4\\swea\\res\\sample_input_타일매칭.txt"));
+        System.setIn(new java.io.FileInputStream("C:\\Users\\doorm\\OneDrive\\바탕 화면\\Algorithm\\java\\src\\jan\\week4\\swea\\res\\sample_input_타일매칭.txt"));
         br = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer stinit = new StringTokenizer(br.readLine(), " ");
@@ -113,6 +113,12 @@ class UserSolution {
         board = new int[8][8];      // 8 x 8 격자는 고정
         candidateBlocks = new int[8][n];
         candidateBlockIdx = new int[8];
+
+        for(int x=0; x<8; x++) {
+            for(int i=0; i<n; i++) {
+                candidateBlocks[x][i] = mTiles[i][x];
+            }
+        }
     }
 
     /**
@@ -139,9 +145,13 @@ class UserSolution {
          *
          * 한 턴에 한 번의 교환만 일어난다.
          */
-        int[] ret = new int[5];
+        step1();
 
-        return ret;
+        step2();
+
+        int finalScore = step3();
+
+        return new int[] {finalScore, best.y, best.x, best.ty, best.tx};
     }
 
     void step1() {
@@ -158,15 +168,185 @@ class UserSolution {
             // 2. 3 개 이상 연속되는 타일이 없어야한다.
             if(!removeSeqBlocks()) continue;
             // 3. 타일 교환을 통해 점수 획득이 가능해야한다.
+            if(canChangeBlock()) break;
+            // 만약 타일을 교환할 수 없다면 -> 격자를 초기화한다.
+            clearBoard();
+        }
+    }
+    ChangeCandidate best;
+    void step2() {
+        best = new ChangeCandidate(9,9,9,9,-1,false);       // 초기 값은 우선순위에 하나도 반영이 되지 않도록
+
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+
+                // 오른쪽 swap
+                if (x + 1 < 8) {
+                    changeBlock(y, x, y, x + 1);
+                    int score = calcScore();
+                    if (score > 0) {
+                        ChangeCandidate cur =
+                                new ChangeCandidate(y, x, y, x + 1, score, true);
+                        best = pickBest(cur, best);
+                    }
+                    changeBlock(y, x, y, x + 1);
+                }
+
+                // 위쪽 swap
+                if (y + 1 < 8) {
+                    changeBlock(y, x, y + 1, x);
+                    int score = calcScore();
+                    if (score > 0) {
+                        ChangeCandidate cur =
+                                new ChangeCandidate(y, x, y + 1, x, score, false);
+                        best = pickBest(cur, best);
+                    }
+                    changeBlock(y, x, y + 1, x);
+                }
+            }
+        }
+        // 가장 최적의 값을 교환
+        changeBlock(best.y, best.x, best.ty, best.tx);
+    }
+
+    int calcScore() {
+        int score = 0;
+
+        for (int y=0; y<8; y++) {   // 가로
+            int x = 0;
+            while (x<8) {
+                if (board[y][x]==0) {
+                    x++;
+                    continue;
+                }
+                int target = board[y][x];       // 인접한 영역을 찾을 블록
+                int start = x;
+                while (x<8 && board[y][x]==target) x++;
+                if (x-start>=3) {           // 3 개 이상의 블록이 연속적으로 있음
+                    score += scoreMap(x - start);
+                }
+            }
+        }
+
+        for (int x=0; x<8; x++) {   // 세로
+            int y = 0;
+            while (y<8) {
+                if (board[y][x] == 0) {
+                    y++;
+                    continue;
+                }
+                int target = board[y][x];       // 인접한 영역을 찾을 블록
+                int start = y;
+                while (y<8 && board[y][x]==target) y++;
+                if (y-start>=3) {           // 3 개 이상의 블록이 연속적으로 있음
+                    score += scoreMap(y-start);
+                }
+            }
+        }
+
+        return score;
+    }
+
+    int scoreMap(int count) {
+        if(count == 3) return 1;
+        if(count == 4) return 4;
+        if(count > 4) return 9;
+        return 0;       // 점수에 포함되지 않는 경우
+    }
+
+    class ChangeCandidate {
+        int y, x;
+        int ty, tx;
+        int score;
+        boolean right;      // true : 오른쪽, false : 왼쪽
+
+        ChangeCandidate(int y, int x, int ty, int tx, int score, boolean right) {
+            this.y = y;
+            this.x = x;
+            this.ty = ty;
+            this.tx = tx;
+            this.score = score;
+            this.right = right;
         }
     }
 
-    void step2() {
-
+    ChangeCandidate pickBest(ChangeCandidate a, ChangeCandidate b) {
+        if (a.score != b.score) return a.score > b.score ? a : b;
+        if (a.y != b.y) return a.y < b.y ? a : b;
+        if (a.x != b.x) return a.x < b.x ? a : b;
+        if (a.right != b.right) return a.right ? a : b;
+        return a;
     }
 
-    void step3() {
+    int step3() {
+        /**
+         * 반복해서 제거 + 점수 계산 -> drop 을 반복한다.
+         */
+        int totalScore = 0;
 
+        while (true) {
+            int score=removeAndCalc();
+            if (score==0) break;
+            totalScore+=score;
+            dropBlock();
+        }
+
+        return totalScore;
+    }
+
+    int removeAndCalc() {
+        boolean[][] checked = new boolean[8][8];
+        int score = checkRemoveTarget(checked);
+
+        if (score == 0) return 0;
+
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (checked[y][x]) board[y][x] = 0;
+            }
+        }
+
+        return score;
+    }
+
+    int checkRemoveTarget(boolean[][] marked) {
+        int score = 0;
+
+        for (int y=0; y<8; y++) {   // 가로
+            int x = 0;
+            while (x<8) {
+                if (board[y][x]==0) {
+                    x++;
+                    continue;
+                }
+                int target = board[y][x];       // 인접한 영역을 찾을 블록
+                int start = x;
+                while (x<8 && board[y][x]==target) x++;
+                if (x-start >= 3) {           // 3 개 이상의 블록이 연속적으로 있음
+                    score += scoreMap(x - start);
+                    for (int i=start; i<x; i++) marked[y][i] = true;
+                }
+            }
+        }
+
+        for (int x=0; x<8; x++) {   // 세로
+            int y = 0;
+            while (y<8) {
+                if (board[y][x] == 0) {
+                    y++;
+                    continue;
+                }
+                int target = board[y][x];       // 인접한 영역을 찾을 블록
+                int start = y;
+                while (y<8 && board[y][x]==target) y++;
+                if (y-start >= 3) {           // 3 개 이상의 블록이 연속적으로 있음
+                    score += scoreMap(y-start);
+                    for (int i = start; i < y; i++) marked[i][x] = true;
+                }
+            }
+        }
+
+        return score;
     }
 
     void dropBlock() {
@@ -249,15 +429,69 @@ class UserSolution {
             for(int x=0; x<8; x++) {    // 가로
                 // 오른쪽 교환
                 if(x+1<8) {
-
+                    changeBlock(y, x, y, x+1);
+                    if(hasSeq()) {
+                        changeBlock(y, x, y, x+1);
+                        return true;
+                    }
+                    changeBlock(y, x, y, x+1);
                 }
                 // 위쪽 교환
                 if(y+1<8) {
-
+                    changeBlock(y, x, y+1, x);
+                    if(hasSeq()) {
+                        changeBlock(y, x, y+1, x);
+                        return true;
+                    }
+                    changeBlock(y, x, y+1, x);
                 }
             }
         }
-        return true;
+        return false;
     }
 
+    void changeBlock(int y, int x, int ty, int tx) {
+        int temp = board[y][x];
+        board[y][x] = board[ty][tx];
+        board[ty][tx] = temp;
+    }
+
+    boolean hasSeq() {
+        for (int y=0; y<8; y++) {   // 가로
+            int x = 0;
+            while (x<8) {
+                if (board[y][x]==0) {
+                    x++;
+                    continue;
+                }
+                int target = board[y][x];       // 인접한 영역을 찾을 블록
+                int start = x;
+                while (x<8 && board[y][x]==target) x++;
+                if (x - start >= 3) {           // 3 개 이상의 블록이 연속적으로 있음
+                    return true;
+                }
+            }
+        }
+
+        for (int x=0; x<8; x++) {   // 세로
+            int y = 0;
+            while (y<8) {
+                if (board[y][x] == 0) {
+                    y++;
+                    continue;
+                }
+                int target = board[y][x];       // 인접한 영역을 찾을 블록
+                int start = y;
+                while (y<8 && board[y][x]==target) y++;
+                if (y - start >= 3) {           // 3 개 이상의 블록이 연속적으로 있음
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    void clearBoard() {
+        for(int i=0; i<8; i++) Arrays.fill(board[i], 0);
+    }
 }
