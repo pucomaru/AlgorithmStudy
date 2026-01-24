@@ -173,15 +173,15 @@ class UserSolution {
         /**
          * 빈 공간이 있다면, 블록을 떨어뜨려 처리한다.
          */
-        for (int x = 0; x < 8; x++) {       // 가로 이동
+        for (int x=0; x<8; x++) {       // 가로 이동
             int dropPoint = 0;              // 블록을 떨어뜨릴 위치
 
-            for (int y = 0; y < 8; y++) {   // 세로 이동
-                if(board[y][x] == 0) continue;
+            for (int y=0; y<8; y++) {   // 세로 이동
+                if(board[y][x]==0) continue;
                 board[dropPoint++][x] = board[y][x];        // 떨어뜨려야하는 위치가 있다면 갱신
             }
 
-            while (dropPoint < 8) {        // 아직 빈 칸이 남아있음 -> 대기중인 블록에서 채워야함
+            while (dropPoint<8) {        // 아직 빈 칸이 남아있음 -> 대기중인 블록에서 채워야함
                 board[dropPoint++][x] = candidateBlocks[x][candidateBlockIdx[x]++];
             }
         }
@@ -196,32 +196,32 @@ class UserSolution {
         boolean[][] isSeq = new boolean[8][8];
         boolean removed = true;
 
-        for (int y = 0; y < 8; y++) {   // 가로
+        for (int y=0; y<8; y++) {   // 가로
             int x = 0;
-            while (x < 8) {
-                if (board[y][x] == 0) {
+            while (x<8) {
+                if (board[y][x]==0) {
                     x++;
                     continue;
                 }
                 int target = board[y][x];       // 인접한 영역을 찾을 블록
                 int start = x;
-                while (x < 8 && board[y][x] == target) x++;
+                while (x<8 && board[y][x]==target) x++;
                 if (x - start >= 3) {           // 3 개 이상의 블록이 연속적으로 있음
-                    for (int i = start; i < x; i++) isSeq[y][i] = true;
+                    for (int i=start; i<x; i++) isSeq[y][i] = true;
                 }
             }
         }
 
-        for (int x = 0; x < 8; x++) {   // 세로
+        for (int x=0; x<8; x++) {   // 세로
             int y = 0;
-            while (y < 8) {
+            while (y<8) {
                 if (board[y][x] == 0) {
                     y++;
                     continue;
                 }
                 int target = board[y][x];       // 인접한 영역을 찾을 블록
                 int start = y;
-                while (y < 8 && board[y][x] == target) y++;
+                while (y<8 && board[y][x]==target) y++;
                 if (y - start >= 3) {           // 3 개 이상의 블록이 연속적으로 있음
                     for (int i = start; i < y; i++) isSeq[i][x] = true;
                 }
@@ -229,8 +229,8 @@ class UserSolution {
         }
 
         // 삭제
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
+        for (int y=0; y<8; y++) {
+            for (int x=0; x<8; x++) {
                 if (isSeq[y][x]) {
                     board[y][x] = 0;
                     removed = false;
@@ -241,5 +241,23 @@ class UserSolution {
         return removed;
     }
 
+    boolean canChangeBlock() {
+        /**
+         * 오른쪽, 위쪽 으로만 교환이 가능
+         */
+        for(int y=0; y<8; y++) {        // 세로
+            for(int x=0; x<8; x++) {    // 가로
+                // 오른쪽 교환
+                if(x+1<8) {
+
+                }
+                // 위쪽 교환
+                if(y+1<8) {
+
+                }
+            }
+        }
+        return true;
+    }
 
 }
