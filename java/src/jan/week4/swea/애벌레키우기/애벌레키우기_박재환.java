@@ -78,7 +78,7 @@ public class 애벌레키우기_박재환 {
 
     public static void main(String[] args) throws Exception
     {
-        System.setIn(new java.io.FileInputStream("C:\\Users\\doorm\\Desktop\\Algorithm\\java\\src\\jan\\week4\\swea\\res\\sample_input_애벌레키우기.txt"));
+        System.setIn(new java.io.FileInputStream("C:\\Users\\doorm\\OneDrive\\바탕 화면\\Algorithm\\java\\src\\jan\\week4\\swea\\res\\sample_input_애벌레키우기.txt"));
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -141,11 +141,8 @@ class UserSolution
         void grow() {       // 잠재력이 1 이상이라면, 크기 증가
             if(potential < 1) return;
             potential--;
+            if (isStraight()) straightCount++;
             length++;
-
-//            if (straightCount == length - 2) {
-//                straightCount++;
-//            }
         }
 
         boolean isStraight() {
@@ -153,13 +150,11 @@ class UserSolution
         }
 
         void move() {
-//            System.out.printf("[Move - Detail] id : %d, straightCount : %d, length %d\n", this.id, this.straightCount, this.length);
             /**
              * 몸이 일직선 상태인 경우
              * -> 시계방향으로 90도 회전 후 1칸 이동
              */
             if(isStraight()) {
-//                System.out.printf("[Turn]\n");
                 prevDir = dir;
                 dir = (dir+1)%4;
                 straightCount = 0;
@@ -185,17 +180,21 @@ class UserSolution
 
     public void join(int mTime, int mID, int mX, int mY, int mLength)
     {
-        System.out.printf("[Join] id : %d\n", mID);
+//        System.out.printf("[Join] id : %d\n", mID);
         jumpTime(mTime);
         Worm worm = new Worm(mID, mY, mX, mLength);
         worms.add(worm);
     }
     void jumpTime(int mTime) {
         while(curTime < mTime) {
-            System.out.printf("curTime : %d -> %d\n", curTime, curTime+1);
-            moveWorms();
+//            System.out.printf("curTime : %d -> %d\n", curTime, curTime+1);
             growAllWorms();
+            moveWorms();
             curTime++;
+            for(Worm worm : worms) {
+                if(!worm.isLive) continue;
+//                System.out.printf("[%d] = head : [%d, %d], dir : %d, straigthCount : %d, length : %d, potential : %d\n", worm.id, worm.headX, worm.headY, worm.dir, worm.straightCount, worm.length, worm.potential);
+            }
         }
     }
     void moveWorms() {
@@ -229,7 +228,7 @@ class UserSolution
         for(Worm worm : worms) {
             if(!worm.isLive) continue;
             worm.move();
-            System.out.printf("[Move] id : %d (%d, %d) / straightCount : %d / length : %d\n", worm.id, worm.headX, worm.headY, worm.straightCount, worm.length);
+//            System.out.printf("[Move] id : %d (%d, %d), straightCount : %d, length : %d, isStraight : %s\n", worm.id, worm.headX, worm.headY, worm.straightCount, worm.length, worm.isStraight());
         }
     }
     Set<Worm> deadByOutOfBoardWorms;
@@ -258,63 +257,57 @@ class UserSolution
     }
 
     void mergeWorms() {
-        Map<Worm, Worm> collisions = new HashMap<>();
         Map<Worm, List<Worm>> hitTo = new HashMap<>();
-        Map<Worm, Integer> indeg = new HashMap<>();
-        Map<Worm, Integer> outdeg = new HashMap<>();
         Set<Worm> willDie = new HashSet<>();
-        willDie.addAll(deadByOutOfBoardWorms);
-        willDie.addAll(deadByHeadCollisionsWorms);
 
         for(Worm a : worms) {       // 머리
             if(!a.isLive) continue;
-            if (willDie.contains(a)) continue;
+            if(willDie.contains(a)) continue;
             for(Worm b : worms) {   // 몸통
                 if(!b.isLive) continue;
                 if(a==b) continue;
+                if(a.headX == b.headX && a.headY == b.headY) continue;
 
                 /**
                  * a 가 b 에 부딪히면, a 의 길이 만큼 b 의 잠재력이 증가한다.
                  */
-                if(isCollision(a, b)) {
-                    System.out.printf("[Collision] %d -> %d\n", a.id, b.id);
-                    hitTo.computeIfAbsent(a, k -> new ArrayList<>()).add(b);
-                    outdeg.put(a, outdeg.getOrDefault(a, 0) + 1);
-                    indeg.put(b, indeg.getOrDefault(b, 0) + 1);
+                if(isCollision(a, b)) {     // 충돌하는 애벌레(머리) 는 반드시 하나의 애벌레(몸통)에만 충돌한다.
+                    // -> 충돌 당하는(몸통) 은 여러 애벌레에게 충돌을 당할 수 있다.
+//                    System.out.printf("[Collision] %d -> %d\n", a.id, b.id);
+                    hitTo.computeIfAbsent(b, k -> new ArrayList<>()).add(a);
+                    willDie.add(a);
                     break;
                 }
             }
         }
-        checkAllCollision(hitTo, indeg, outdeg, willDie);
-    }
 
-    void checkAllCollision(Map<Worm, List<Worm>> hitTo, Map<Worm, Integer> indeg, Map<Worm, Integer> outdeg, Set<Worm> willDie) {
-        Set<Worm> dead = new HashSet<>(willDie);
-
-        for (Worm w : outdeg.keySet()) {
-            dead.add(w);
+        for(Map.Entry<Worm, List<Worm>> e : hitTo.entrySet()) {
+//            System.out.printf("[몸통] id - %d\n", e.getKey().id);
+            for(Worm worm : e.getValue()) {
+//                System.out.printf("[대가뤼] [%d] = head : [%d, %d], dir : %d, straigthCount : %d, length : %d, potential : %d\n", worm.id, worm.headX, worm.headY, worm.dir, worm.straightCount, worm.length, worm.potential);
+            }
         }
-        for (Map.Entry<Worm, Integer> e : indeg.entrySet()) {
-            Worm w = e.getKey();
 
-            if (dead.contains(w)) continue;
-            if (outdeg.getOrDefault(w, 0) > 0) continue;
+        willDie.addAll(deadByOutOfBoardWorms);
+        willDie.addAll(deadByHeadCollisionsWorms);
+        for (Map.Entry<Worm, List<Worm>> e : hitTo.entrySet()) {
+            Worm victim = e.getKey();
+            if (willDie.contains(victim)) continue;
 
             int gain = 0;
-            for (Map.Entry<Worm, List<Worm>> x : hitTo.entrySet()) {
-                if (x.getValue().contains(w)) {
-                    gain += x.getKey().length;
-                }
+            for (Worm attacker : e.getValue()) {
+                gain += attacker.length;
             }
-            w.potential += gain;
+            victim.potential += gain;
         }
-        for (Worm w : dead) {
+
+        for (Worm w : willDie) {
             w.isLive = false;
         }
     }
 
     boolean isCollision(Worm a, Worm b) {
-        System.out.printf("[isCollision] %d -> %d\n", a.id, b.id);
+//        System.out.printf("[isCollision] %d -> %d\n", a.id, b.id);
         // 해당 머리의 충돌 여부를 확인
         int headX = a.headX;
         int headY = a.headY;
@@ -333,7 +326,7 @@ class UserSolution
     }
 
     boolean checkCollision(int headX, int headY, int x, int y, int dir, int len) {
-        if(len == 0) return false;      // 머리와 머리 충돌은 이전에 처리
+        if(len == 0) return headX == x && headY == y;
 
         if(dir == 0 || dir == 2) {      // 상 / 하
             if(headY != y) return false;
@@ -352,7 +345,7 @@ class UserSolution
 
     public 애벌레키우기_박재환.RESULT top5(int mTime)
     {
-        System.out.printf("[TOP] curTime : %d\n", mTime);
+//        System.out.printf("[TOP] curTime : %d\n", mTime);
         애벌레키우기_박재환.RESULT res = new 애벌레키우기_박재환.RESULT();
         jumpTime(mTime);
         List<Worm> alive = new ArrayList<>();
