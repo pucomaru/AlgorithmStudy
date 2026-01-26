@@ -7,7 +7,7 @@
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
 | 1 | 인터넷 설치 | [BOJ 1800](https://www.acmicpc.net/problem/1800) |
-| 2 | 이중 우선순위  | [BOJ 7662](https://www.acmicpc.net/problem/7662) |
+| 2 | 이중 우선순위 큐 | [BOJ 7662](https://www.acmicpc.net/problem/7662) |
 | 3 | 학교 탐방하기 | [BOJ 13418](https://www.acmicpc.net/problem/13418) |
 | 4 | 우주 탐사선 | [BOJ 17182](https://www.acmicpc.net/problem/17182) |
 | 5 | 가르침 | [BOJ 1062](https://www.acmicpc.net/problem/1062) |
