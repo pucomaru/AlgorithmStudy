@@ -21,6 +21,7 @@ def solution():
         visited = [False] * (building_count + 1)
 
         # 시작 지점
+        visited[first] = True
         for b, cost in roads[first]:
             hq.heappush(h, (cost, b))
 
@@ -28,13 +29,11 @@ def solution():
         uphill = 0
         while h:
             cost, a = hq.heappop(h)
-
             if visited[a]:
                 continue
-
+            visited[a] = True
             conn_roads += 1
             uphill += cost
-            visited[a] = True
 
             if conn_roads == building_count - 1:
                 return uphill
@@ -50,6 +49,7 @@ def solution():
         visited = [False] * (building_count + 1)
 
         # 시작 지점
+        visited[first] = True
         for b, cost in roads[first]:
             hq.heappush(h, (-cost, b))
 
@@ -60,10 +60,9 @@ def solution():
             cost *= -1
             if visited[a]:
                 continue
-
+            visited[a] = True
             conn_roads += 1
             uphill += cost
-            visited[a] = True
 
             if conn_roads == building_count - 1:
                 return uphill
