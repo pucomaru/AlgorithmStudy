@@ -40,37 +40,154 @@ public class 청소년상어_박재환 {
     // ↑, ↖, ←, ↙, ↓, ↘, →, ↗ (1-based)
     static final int[] dx = {0,-1,-1,0,1,1,1,0,-1};
     static final int[] dy = {0,0,-1,-1,-1,0,1,1,1};
-    static int[][] map;
-    static TreeSet<Fish> fishes;
+    static int maxFee;
     static void init(BufferedReader br) throws IOException {
         StringTokenizer st;
-        // 물고기는 번호가 작은 순으로 움직인다.
-        fishes = new TreeSet<>((a, b) -> Integer.compare(a.no, b.no));
-        map = new int[4][4];
+        Fish[] fishes = new Fish[17];
+        int[][] map = new int[4][4];
 
         for(int x=0; x<4; x++) {
             st = new StringTokenizer(br.readLine().trim());
             for(int y=0; y<4; y++) {
-                int no = Integer.parseInt(st.nextToken());
+                int id = Integer.parseInt(st.nextToken());
                 int dir = Integer.parseInt(st.nextToken());
-                Fish fish = new Fish(no, dir);
-                fishes.add(fish);
-                map[x][y] = no;
+                Fish fish = new Fish(x, y, dir);
+                map[x][y] = id;
+                fishes[id] = fish;
             }
+        }
+
+        // 상어의 초기 위치 설정
+        int initFee = map[0][0];
+        Fish fish = fishes[initFee];
+        Shark shark = new Shark(fish.x, fish.y, fish.dir, 0);
+        shark.sum += initFee;
+        maxFee = initFee;
+        map[0][0] = -1;      // 상어 : -1, 빈칸 : 0
+        fish.die();
+
+        moveShark(shark, fishes, map);
+        System.out.println(maxFee);
+    }
+
+    static void moveShark(Shark shark, Fish[] fishes, int[][] map) {
+        maxFee = Math.max(maxFee, shark.sum);
+        // 물고기 이동
+        moveFish(fishes, map);
+        // 상어 이동
+        for(int i=1; i<4; i++) {
+            int nx = shark.x + dx[shark.dir] * i;
+            int ny = shark.y + dy[shark.dir] * i;
+
+            if(nx < 0 || ny < 0 || nx >= 4 || ny >= 4) break;
+            if(map[nx][ny] < 1) continue;   // 빈칸인경우 넘어간다.
+
+            // 상어가 이동이 가능하다.
+            // 배열 복사
+            int[][] copyMap = copyMap(map);
+            Fish[] copyFishes = copyFishes(fishes);
+            Shark copyShark = new Shark(nx, ny, shark.dir, shark.sum);
+
+            // 상어 이동
+            int fishId = copyMap[nx][ny];
+            Fish fee = copyFishes[fishId];
+            copyMap[shark.x][shark.y] = 0;
+            copyMap[nx][ny] = -1;
+            fee.live = false;
+            copyShark.sum += fishId;
+            copyShark.dir = fee.dir;
+            moveShark(copyShark, copyFishes, copyMap);
+        }
+    }
+
+    static Fish[] copyFishes(Fish[] fishes) {
+        Fish[] copyFishes = new Fish[17];
+        for(int i=1; i<17; i++) {
+            Fish originFish = fishes[i];
+            Fish tempFish = new Fish(originFish.x, originFish.y, originFish.dir, originFish.live);
+            copyFishes[i] = tempFish;
+        }
+        return copyFishes;
+    }
+
+    static int[][] copyMap(int[][] map) {
+        int[][] copyMap = new int[4][4];
+        for(int x=0; x<4; x++) {
+            for(int y=0; y<4; y++) {
+                copyMap[x][y] = map[x][y];
+            }
+        }
+        return copyMap;
+    }
+
+    static void moveFish(Fish[] fishes, int[][] map) {
+        for(int i=1; i<17; i++) {
+            if(!fishes[i].live) continue;
+            findMoveSpace(i, fishes, map);
+        }
+    }
+
+    static void findMoveSpace(int id, Fish[] fishes, int[][] map) {
+        Fish fish = fishes[id];
+
+        for(int i=0; i<8; i++) {
+            int nDir = (fish.dir + i - 1) % 8 + 1;
+            int nx = fish.x + dx[nDir];
+            int ny = fish.y + dy[nDir];
+
+            if(nx < 0 || ny < 0 || nx >= 4 || ny >= 4) continue;
+            if(map[nx][ny] == -1) continue;
+
+            // 이동할 수 있는 위치라면
+            fish.dir = nDir;
+            int targetId = map[nx][ny];
+            map[fish.x][fish.y] = 0;
+            if (targetId != 0) {    // 다른 물고기가 있는 칸으로 이동
+                Fish target = fishes[targetId];
+                target.x = fish.x;
+                target.y = fish.y;
+                map[target.x][target.y] = targetId;
+            }
+            // 현재 탐색 순서인 물고기 이동
+            fish.x = nx;
+            fish.y = ny;
+            map[nx][ny] = id;
+            break;
+
         }
     }
 
     static class Fish {
-        int no;
+        int x, y;
         int dir;
+        boolean live;
 
-        Fish(int no, int dir) {
-            this.no = no;
+        Fish(int x, int y, int dir) {
+            this.x = x;
+            this.y = y;
             this.dir = dir;
+            this.live = true;
         }
 
-        void turn() {
-            dir = (dir%9) + (dir/9);
+        Fish(int x, int y, int dir, boolean live) {
+            this.x = x;
+            this.y = y;
+            this.dir = dir;
+            this.live = live;
+        }
+
+        void die() { live = false; }
+    }
+
+    static class Shark {
+        int x, y;
+        int dir;
+        int sum;
+        Shark(int x, int y, int dir, int sum) {
+            this.x = x;
+            this.y = y;
+            this.dir = dir;
+            this.sum = sum;
         }
     }
 }
