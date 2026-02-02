@@ -1,16 +1,16 @@
 # 알고리즘 풀이
 
-## 📅 1월 문제 목록
+## 📅 2월 문제 목록
 
-### ✅ 5주차
+### ✅ 1주차
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 인터넷 설치 | [BOJ 1800](https://www.acmicpc.net/problem/1800) |
-| 2 | 이중 우선순위 큐 | [BOJ 7662](https://www.acmicpc.net/problem/7662) |
-| 3 | 학교 탐방하기 | [BOJ 13418](https://www.acmicpc.net/problem/13418) |
-| 4 | 우주 탐사선 | [BOJ 17182](https://www.acmicpc.net/problem/17182) |
-| 5 | 가르침 | [BOJ 1062](https://www.acmicpc.net/problem/1062) |
+| 1 | 나무 재테 | [BOJ 16235](https://www.acmicpc.net/problem/16235) |
+| 2 | 아기 상어 | [BOJ 16236](https://www.acmicpc.net/problem/16236) |
+| 3 | 스타트 택시 | [BOJ 19238](https://www.acmicpc.net/problem/19238) |
+| 4 | 2048(Easy) | [BOJ 12100](https://www.acmicpc.net/problem/12100) |
+| 5 | 인기도 조사 | [BOJ 2835](https://www.acmicpc.net/problem/2835) |
 
 ---
 
@@ -101,6 +101,18 @@
 | 3 | N포커 | [BOJ 16565](https://www.acmicpc.net/problem/16565) |
 | 4 | GCD(n, k) = 1 | [BOJ 11689](https://www.acmicpc.net/problem/11689) |
 | 5 | 수열과 쿼리 16 | [BOJ 14428](https://www.acmicpc.net/problem/14428) |
+
+---
+
+### ✅ 5주차
+
+| 번호 | 문제 이름 | 링크 |
+|------|-----------|------|
+| 1 | 인터넷 설치 | [BOJ 1800](https://www.acmicpc.net/problem/1800) |
+| 2 | 이중 우선순위 큐 | [BOJ 7662](https://www.acmicpc.net/problem/7662) |
+| 3 | 학교 탐방하기 | [BOJ 13418](https://www.acmicpc.net/problem/13418) |
+| 4 | 우주 탐사선 | [BOJ 17182](https://www.acmicpc.net/problem/17182) |
+| 5 | 가르침 | [BOJ 1062](https://www.acmicpc.net/problem/1062) |
 
 ---
 
