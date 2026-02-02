@@ -6,7 +6,7 @@
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 나무 재테 | [BOJ 16235](https://www.acmicpc.net/problem/16235) |
+| 1 | 나무 재테크 | [BOJ 16235](https://www.acmicpc.net/problem/16235) |
 | 2 | 아기 상어 | [BOJ 16236](https://www.acmicpc.net/problem/16236) |
 | 3 | 스타트 택시 | [BOJ 19238](https://www.acmicpc.net/problem/19238) |
 | 4 | 2048(Easy) | [BOJ 12100](https://www.acmicpc.net/problem/12100) |
