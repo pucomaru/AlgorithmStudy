@@ -1,7 +1,6 @@
-package feb.week1;
+package feb.week1.boj;
 
 import java.io.*;
-import java.util.*;
 
 public class _1로만들기_이다예 {
     static final int MAX_NUM = Integer.MAX_VALUE;
