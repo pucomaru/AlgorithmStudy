@@ -2,15 +2,15 @@
 
 ## 📅 2월 문제 목록
 
-### ✅ 1주차
+### ✅ 2주차
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 나무 재테크 | [BOJ 16235](https://www.acmicpc.net/problem/16235) |
-| 2 | 아기 상어 | [BOJ 16236](https://www.acmicpc.net/problem/16236) |
-| 3 | 스타트 택시 | [BOJ 19238](https://www.acmicpc.net/problem/19238) |
-| 4 | 2048(Easy) | [BOJ 12100](https://www.acmicpc.net/problem/12100) |
-| 5 | 인기도 조사 | [BOJ 2835](https://www.acmicpc.net/problem/2835) |
+| 1 | 횡단보도 | [BOJ 24042](https://www.acmicpc.net/problem/24042) |
+| 2 | 벽 부수고 이동하기 | [BOJ 2206](https://www.acmicpc.net/problem/2206) |
+| 3 | 탑 보기 | [BOJ 22866](https://www.acmicpc.net/problem/22866) |
+| 4 | List of Unique Numbers | [BOJ 13144](https://www.acmicpc.net/problem/13144) |
+| 5 | 문자열 게임 2 | [BOJ 20437](https://www.acmicpc.net/problem/20437) |
 
 ---
 
@@ -117,5 +117,19 @@
 ---
 
 </details>
+<summary>🔽 2026.02월 </summary>
 
+### ✅ 1주차
+
+| 번호 | 문제 이름 | 링크 |
+|------|-----------|------|
+| 1 | 나무 재테크 | [BOJ 16235](https://www.acmicpc.net/problem/16235) |
+| 2 | 아기 상어 | [BOJ 16236](https://www.acmicpc.net/problem/16236) |
+| 3 | 스타트 택시 | [BOJ 19238](https://www.acmicpc.net/problem/19238) |
+| 4 | 2048(Easy) | [BOJ 12100](https://www.acmicpc.net/problem/12100) |
+| 5 | 인기도 조사 | [BOJ 2835](https://www.acmicpc.net/problem/2835) |
+
+---
+
+</details>
 
