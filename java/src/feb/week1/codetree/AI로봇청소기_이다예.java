@@ -12,7 +12,7 @@ public class AI로봇청소기_이다예 {
     static boolean[][] robotMap;
     static List<Robot> robots;
 
-    // 오른쪽 아래 왼쪾 위
+    // 오른쪽 - 아래 - 왼쪽 - 위
     static final int[] DR = {0,1,0,-1};
     static final int[] DC = {1,0,-1,0};
 
@@ -27,11 +27,12 @@ public class AI로봇청소기_이다예 {
         // 테스트 횟수
         L = Integer.parseInt(st.nextToken());
 
+        // 먼지 배열
         arr = new int[N+1][N+1];
+        // 로봇 있는지 확인 배열
         robotMap = new boolean[N+1][N+1];
 
-
-        // 격자의 먼즤 양 ( -1은 물건 위치)
+        // 격자의 먼지 양 ( -1은 물건 위치)
         for (int i = 1 ; i < N + 1 ; i++){
             st = new StringTokenizer(br.readLine());
             for(int j = 1; j < N+ 1 ; j++){
@@ -41,13 +42,13 @@ public class AI로봇청소기_이다예 {
 
         // 로봇 위치 저장 리스트
         robots = new ArrayList<>();
-        // -2는 로봇의 위치
+
         for(int i = 0 ; i < K ; i++){
             st = new StringTokenizer(br.readLine());
             int robotR = Integer.parseInt(st.nextToken());
             int robotC = Integer.parseInt(st.nextToken());
 
-            robots.add(new Robot(robotR,robotC,0));
+            robots.add(new Robot(robotR,robotC));
             // 로봇 위치 표시
             robotMap[robotR][robotC] = true;
         }
@@ -83,7 +84,6 @@ public class AI로봇청소기_이다예 {
             rb.c = target.c;
 
             robotMap[rb.r][rb.c] = true;
-
         }
     }
 
@@ -91,97 +91,109 @@ public class AI로봇청소기_이다예 {
     // 1. 제일 가까운
     // 2. 행(R) 최소
     // 3. 열(C) 최소
-    static Next bfsFind(int nowR, int nowC){
+    static Next bfsFind(int nowR, int nowC) {
+
         boolean[][] visited = new boolean[N+1][N+1];
         ArrayDeque<Next> dq = new ArrayDeque<>();
 
-        // 아직 먼지를 못찾았으면
-        int findDust = -1;
-        // 최단거리에서 만난 칸들중 행/열 가장 작은 좌표 표시
-        int bestR = Integer.MAX_VALUE;
-        int bestC = Integer.MIN_VALUE;
+        // 먼지 있는 최단거리 저장 변수
+        int findDist = -1;
 
-        dq.add(new Next(nowR,nowC,0,0));
+        dq.add(new Next(nowR,nowC,0));
         visited[nowR][nowC] = true;
+        int bestR = Integer.MAX_VALUE;
+        int bestC = Integer.MAX_VALUE;
 
-        while(!dq.isEmpty()) {
+        while(!dq.isEmpty()){
             Next cur = dq.poll();
+            // 먼지를 찾았을 시 더 볼 필요가 없음.
+            if(findDist !=-1 && cur.dist > findDist) break;
 
-            // 처음 먼지를 찾은 순간이 최단거리
-            if (findDust != -1 || cur.dist > findDust) break;
+            if(arr[cur.r][cur.c] > 0){
+                if(findDist == -1) findDist = cur.dist;
 
-            // 같은 최단거리에서 행/열이 더 작은 칸으로 best 갱신
-            if (cur.r < bestR || (cur.r == bestR && cur.c < bestC)) {
-                bestR = cur.r;
-                bestC = cur.c;
+                // 같은 최단거리에서 (r,c) 최소
+                if(cur.r < bestR || (cur.r==bestR && cur.c < bestC)){
+                    bestR = cur.r;
+                    bestC = cur.c;
+                }
             }
 
-            for (int d =0 ; d < 4 ; d++){
+            // 4 방향 이동
+            for(int d = 0 ; d < 4 ; d++){
                 int nr = cur.r + DR[d];
-                int nc = cur.c  +DC[d];
+                int nc = cur.c + DC[d];
 
-                if(nr <= 0 || nr >= N+1 || nc <= 0 || nc >= N+1) continue;
-                if (arr[nr][nc] == -1) continue; // 물건이 있을 경우
-                if (robotMap[nr][nc]) continue; // 로봇이 있을꼉우
-                if (visited[nr][nc]) continue;
+                if(nr <=0 || nr >= N+1 || nc <=0 || nc >=N+1) continue;
+
+                // 가려는 방향에 로봇이 있거나 물건이 있으면 못감
+                if(robotMap[nr][nc]) continue;
+                if(arr[nr][nc] == -1) continue;
+                // 이미 간곳이면 패스
+                if(visited[nr][nc]) continue;
 
                 visited[nr][nc] = true;
-                dq.add(new Next(nr,nc,d,cur.dist+1));
+                dq.add(new Next(nr,nc,cur.dist+1));
             }
-
-            return new Next(bestR, bestC,0,findDust);
-
         }
 
+        if(findDist==-1) return new Next(nowR,nowC,0);
 
-
-
-
-
+        return new Next(bestR,bestC,0);
     }
+
 
     // 먼지 청소
     static void clean(){
-        for(int i = 0 ; i < robots.size(); i++){
+        for(int i = 0 ; i < robots.size(); i++) {
             int robotR = robots.get(i).r;
             int robotC = robots.get(i).c;
-            int direction = robots.get(i).direction;
 
-            // 본인 오른쪽  , 아래, 왼쪽, 위
-            int[][] dr = {{0,0, 1, -1},{0,0,1,0},{0,1, 0, -1},{0,0, 0, -1}};
-            int[][] dc = {{0,1, 0, 0},{0,1,0,-1},{0,0, -1, 0},{0,1, -1, 0}};
+            // bestFace : 로봇이 최종적으로 바라볼 방향(0:오 1:아 2:왼 3:위)
+            int bestFace = 0;
+            int bestSum = -1;
 
-            PriorityQueue<Dust> pq = new PriorityQueue<>((a,b)->{
-                // 합이 같은 방향이 여러개인 경우, 오른쪽, 아래쪽, 왼쪽, 위쪽 방향의 우선순위로 방향 선택
-                if (a.sum == b.sum) return a.direction - b.direction;
-                else return b.sum - a.sum;
-            });
+            for(int face = 0; face < 4; face++){
+                int back = (face+2)%4;
+                int sum = 0;
 
-            // 청소할 수 있는 최대 먼지량은 20
-            // 오른쪽 방향/ 아래쪽 / 왼쪽 /위
-            for(int k = 0 ;k < 4; k++){
-                if(direction == k){
-                    for(int d=0 ; d < 4; d++){
-                        int nr = robotR + dr[k][d];
-                        int nc = robotC + dc[k][d];
-                        // 배열을 벗어났을 때 1 <= n <= N
-                        if(nr <= 0 || nr >= N+1 || nc <=0 || nc >= N+1) continue;
-                        if (arr[nr][nc] > 0){
-                            pq.add(new Dust(nr,nc,arr[nr][nc],d));
-                        }
+                for(int d= 0 ; d<4; d++){
+                    if(d == back) continue;;
 
-                    }
-                    break;
+                    int nr = robotR + DR[d];
+                    int nc = robotC + DC[d];
+
+                    if(nr <= 0 || nr >= N+1 || nc <=0 || nc>= N+1) continue;
+                    // 물건이 있는 경우 안더함
+                    if(arr[nr][nc] == -1) continue;
+
+                    sum += Math.min(arr[nr][nc],20);
+                }
+
+                // 동점이면 우선순위(오른쪽,아래,왼쪽,위) 유지 => ">" 일때만 갱신
+                if (sum > bestSum){
+                    bestSum= sum;
+                    bestFace = face;
                 }
             }
-            while(!pq.isEmpty()){
-                Dust cleanDust = pq.poll();
-                if ( 20 - cleanDust.sum >= 0){
-                    arr[cleanDust.r][cleanDust.c] = 0;
-                }else {
-                    arr[cleanDust.r][cleanDust.c] = cleanDust.sum - 20;
-                }
+            int bestBack = (bestFace + 2) % 4;
+            // bestExclude 제외하고 나머지 3칸 청소
+            for (int d= 0 ; d<4 ;d++){
+                if (d==bestBack) continue;
+
+                int nr = robotR + DR[d];
+                int nc = robotC + DC[d];
+
+                if (nr <= 0 || nr >= N+1 || nc<=0 || nc >= N+1) continue;
+                if (arr[nr][nc]==-1) continue;
+
+                arr[nr][nc] -=20;
+                if(arr[nr][nc] <0 ) arr[nr][nc] = 0;
             }
+
+            arr[robotR][robotC] -= 20;
+            if(arr[robotR][robotC] <0 ) arr[robotR][robotC] = 0;
+
         }
     }
 
@@ -197,28 +209,34 @@ public class AI로봇청소기_이다예 {
     }
 
     // 먼지 확산
-        static void spreadDust(){
-            // 오른쪽 , 아래, 왼쪽, 위
-            int[] dr = {0,1,0,-1};
-            int[] dc = {1,0,-1,0};
-            int[][] temp = arr;
+    static void spreadDust(){
+        int[][] add = new int[N+1][N+1];
 
-            for (int r = 1 ; r < N+1 ; r++){
-                for (int c= 1; c < N+1; c++){
-                    if(temp[r][c] == 0){
-                        int sum = 0 ;
-                        for (int d = 0; d < 4 ; d++){
-                            int nr = r + dr[d];
-                            int nc = c + dc[d];
-                            if(nr < 1 || nr >= N+1 || nc < 1 || nc >= N+1) continue;
-                            if(temp[nr][nc] <=0) continue;
-                            sum += temp[nr][nc];
-                        }
-                        arr[r][c] = sum / 10;
-                    }
+        for (int r = 1; r < N+1 ; r++){
+            for (int c = 1; c < N+1 ; c++){
+                if(arr[r][c]!=0) continue;
+                int sum = 0 ;
+
+                for (int d = 0 ; d < 4; d++){
+                    int nr = r + DR[d];
+                    int nc = c + DC[d];
+
+                    if( nr <= 0 || nr >= N+1 || nc <=0 || nc >= N+1) continue;
+                    if(arr[nr][nc] == -1) continue;
+
+                    sum += arr[nr][nc];
                 }
+                add[r][c] = sum/10;
+            }
         }
 
+        // 동시 확산
+        for (int r = 1; r < N+1 ;r++){
+            for (int c = 1; c < N+1 ;c++){
+                if(arr[r][c] == -1) continue;
+                arr[r][c] += add[r][c];
+            }
+        }
     }
 
     // 총 먼지량 출략
@@ -238,13 +256,11 @@ public class AI로봇청소기_이다예 {
     static class Next{
         int r;
         int c;
-        int direction ;
         int dist ;
 
-        Next(int r, int c , int direction, int dist){
+        Next(int r, int c , int dist){
             this.r = r;
             this.c = c;
-            this.direction = direction;
             this.dist = dist;
         }
     }
@@ -253,12 +269,10 @@ public class AI로봇청소기_이다예 {
     static class Robot{
         int r;
         int c;
-        int direction;
 
-        Robot(int r, int c, int direction){
+        Robot(int r, int c){
             this.r = r;
             this.c = c;
-            this.direction = direction;
         }
     }
 
