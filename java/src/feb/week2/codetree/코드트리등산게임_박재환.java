@@ -49,14 +49,12 @@ public class 코드트리등산게임_박재환 {
                     /**
                      * 기존 산의 오른쪽에 h 높이를 갖는 산을 추가한다.
                      */
-                    addMountain();
                     break;
                 }
                 case 300:{
                     /**
                      * 기존 산들 중, 가장 오른쪽에 위치한 산을 제거한다.
                      */
-                    removeMountain();
                     break;
                 }
                 case 400:{
@@ -71,56 +69,108 @@ public class 코드트리등산게임_박재환 {
 
     }
     static int n;
-    static List<Integer> prevMountain;  // 현재 산의 이전 산 정보
-    static List<Integer> nextMountain;  // 현재 산의 다음 산 정보
-    static List<Integer> mountains;     // 산의 높이
+    static int[] mountains;     // 산의 높이
     static void makeMountain() {
         n = Integer.parseInt(st.nextToken());
-        mountains = new ArrayList<>();
-        prevMountain = new ArrayList<>();
-        nextMountain = new ArrayList<>();
-        // 1-based
-        mountains.add(-1);
-        prevMountain.add(-1);
-        nextMountain.add(-1);
+        mountains = new int[n];
+        for(int i=0; i<n; i++) mountains[i] = Integer.parseInt(st.nextToken());
 
-        for(int mountainId=1; mountainId<n+1; mountainId++) {
-            int height = Integer.parseInt(st.nextToken());
-            mountains.add(height);
-            prevMountain.add(mountainId-1);
-            nextMountain.add(mountainId+1);
+    }
+    static int[] getLis() {
+        int[] compress = compress();
+        int maxValue = 0;
+        for(int i : compress) maxValue = Math.max(maxValue, i);
+
+        SegmentTree segmentTree = new SegmentTree(maxValue);
+        int[] dp = new int[n];
+
+        for(int i=0; i<n; i++) {
+            int height = compress[i];
+
+            int best = 0;
+            if(height > 1) {        // 나보다 작은 최대 DP 찾기
+                best = segmentTree.query(1, 1, maxValue, 1, height-1);
+            }
+
+            dp[i] = best+1;
+            segmentTree.update(1, 1, maxValue, height, height, dp[i]);
         }
-
-        /**
-         * 처음과 마지막 산 연결 끊기
-         */
-        prevMountain.set(1, -1);
-        nextMountain.set(n, -1);
+        return dp;
     }
-    static void addMountain() {
-        int height = Integer.parseInt(st.nextToken());
-        int mountainId = mountains.size();
+    static int[] getReverseLis() {
+        int[] compress = compress();
+        int maxValue = 0;
+        for(int i : compress) maxValue = Math.max(maxValue, i);
 
-        mountains.add(height);
-        prevMountain.add(mountainId-1);
-        nextMountain.add(mountainId+1);
+        SegmentTree segmentTree = new SegmentTree(maxValue);
+        int[] dp = new int[n];
 
-        /**
-         * 기존 산에 연결 추가
-         */
-        nextMountain.set(mountainId-1, mountainId);
+        for(int i=n-1; i>-1; i--) {
+            int height = compress[i];
+
+            int best = 0;
+            if(height < maxValue) {     // 나보다 큰 위치의 DP 찾기
+                best = segmentTree.query(1, 1, maxValue, height+1, maxValue);
+            }
+
+            dp[i] = best+1;
+            segmentTree.update(1, 1, maxValue, height, height, dp[i]);
+        }
+        return dp;
     }
-    static void removeMountain() {
-        int mountainId = mountains.size()-1;
-        mountains.set(mountainId, -1);      // 가장 오른쪽 위치의 산 삭제
+    static int[] compress() {
         /**
-         * 현재 산과 연결된 이전, 이후 산이 있다면 둘이 연결 처리
+         * 좌표 압축
          */
-        int prev = prevMountain.get(mountainId);
-        int next = nextMountain.get(mountainId);
+        int[] temp = new int[n];
+        for(int i=0; i<n; i++) temp[i] = mountains[i];
+        Arrays.sort(temp);
 
-        if(prev != -1) nextMountain.set(prev, next);
-        if(next != -1) prevMountain.set(next, prev);
+        Map<Integer, Integer> map = new HashMap<>();
+        int id = 1;
+
+        for(int i : temp) {
+            if(!map.containsKey(i)) {
+                map.put(i, id++);
+            }
+        }
+        int[] result = new int[n];
+        for(int i=0; i<n; i++) result[i] = map.get(mountains[i]);
+        return result;
     }
+    static class SegmentTree {
+        /**
+         * tree[height]
+         * : 현재 height 에서의 LIS 최대값
+         */
+        int size;
+        int[] tree;
 
+        SegmentTree(int size) {
+            this.size = size;
+            this.tree = new int[4*size];
+        }
+        int query(int id, int l, int r, int s, int e) {
+            if(r < s || l > e) return 0;      // 범위에 완전하게 포함되지 않음
+            if(l >= s && r <= e) {          // 범위에 완전하게 포함됨
+                return tree[id];
+            }
+            int mid = l + (r-l)/2;
+            return Math.max(query(2*id, l ,mid, s, e), query(2*id+1, mid+1, r, s, e));
+        }
+        void update(int id, int l, int r, int s, int e, int targetValue) {
+            /**
+             * 현재 높이에서 최대 값(LIS) 구하기
+             */
+            if(r < s || l > e) return;      // 범위에 완전하게 포함되지 않음
+            if(l >= s && r <= e) {          // 범위에 완전하게 포함됨
+                tree[id] = Math.max(tree[id], targetValue);
+                return;
+            }
+            int mid = l + (r-l)/2;
+            update(2*id, l, mid, s, e, targetValue);
+            update(2*id+1, mid+1, r, s, e, targetValue);
+            tree[id] = Math.max(tree[2*id], tree[2*id+1]);
+        }
+    }
 }
