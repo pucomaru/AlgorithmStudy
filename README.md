@@ -2,15 +2,15 @@
 
 ## 📅 2월 문제 목록
 
-### ✅ 2주차
+### ✅ 3주차
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 횡단보도 | [BOJ 24042](https://www.acmicpc.net/problem/24042) |
-| 2 | 벽 부수고 이동하기 | [BOJ 2206](https://www.acmicpc.net/problem/2206) |
-| 3 | 탑 보기 | [BOJ 22866](https://www.acmicpc.net/problem/22866) |
-| 4 | List of Unique Numbers | [BOJ 13144](https://www.acmicpc.net/problem/13144) |
-| 5 | 문자열 게임 2 | [BOJ 20437](https://www.acmicpc.net/problem/20437) |
+| 1 | 두 용액 | [BOJ 2470](https://www.acmicpc.net/problem/2470) |
+| 2 | 용액 | [BOJ 2467](https://www.acmicpc.net/problem/2467) |
+| 3 | 수열과 쿼리 37 | [BOJ 18435](https://www.acmicpc.net/problem/18436) |
+| 4 | 오름세  | [BOJ 3745](https://www.acmicpc.net/problem/3745) |
+| 5 | 에바쿰 | [BOJ 15967](https://www.acmicpc.net/problem/15967) |
 
 ---
 
@@ -131,6 +131,19 @@
 | 5 | 인기도 조사 | [BOJ 2835](https://www.acmicpc.net/problem/2835) |
 
 ---
+
+### ✅ 2주차
+
+| 번호 | 문제 이름 | 링크 |
+|------|-----------|------|
+| 1 | 횡단보도 | [BOJ 24042](https://www.acmicpc.net/problem/24042) |
+| 2 | 벽 부수고 이동하기 | [BOJ 2206](https://www.acmicpc.net/problem/2206) |
+| 3 | 탑 보기 | [BOJ 22866](https://www.acmicpc.net/problem/22866) |
+| 4 | List of Unique Numbers | [BOJ 13144](https://www.acmicpc.net/problem/13144) |
+| 5 | 문자열 게임 2 | [BOJ 20437](https://www.acmicpc.net/problem/20437) |
+
+---
+
 
 </details>
 
