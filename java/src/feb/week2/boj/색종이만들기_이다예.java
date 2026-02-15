@@ -1,4 +1,4 @@
-package feb;
+package feb.week2.boj;
 
 import java.io.*;
 import java.util.*;
