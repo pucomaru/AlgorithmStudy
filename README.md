@@ -117,6 +117,7 @@
 ---
 
 </details>
+<details>
 <summary>🔽 2026.02월 </summary>
 
 ### ✅ 1주차
