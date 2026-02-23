@@ -2,15 +2,15 @@
 
 ## 📅 2월 문제 목록
 
-### ✅ 3주차
+### ✅ 4주차
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 두 용액 | [BOJ 2470](https://www.acmicpc.net/problem/2470) |
-| 2 | 용액 | [BOJ 2467](https://www.acmicpc.net/problem/2467) |
-| 3 | 수열과 쿼리 37 | [BOJ 18435](https://www.acmicpc.net/problem/18436) |
-| 4 | 오름세  | [BOJ 3745](https://www.acmicpc.net/problem/3745) |
-| 5 | 에바쿰 | [BOJ 15967](https://www.acmicpc.net/problem/15967) |
+| 1 | 소트 게임 | [BOJ 1327](https://www.acmicpc.net/problem/1327) |
+| 2 | K번째 최단경로 찾기 | [BOJ 1854](https://www.acmicpc.net/problem/1854) |
+| 3 | 책정리 | [BOJ 1818](https://www.acmicpc.net/problem/1818) |
+| 4 | 면접보는 승범이네  | [BOJ 17835](https://www.acmicpc.net/problem/17835) |
+| 5 | 전기가 부족해 | [BOJ 10423](https://www.acmicpc.net/problem/10423) |
 
 ---
 
@@ -141,6 +141,18 @@
 | 3 | 탑 보기 | [BOJ 22866](https://www.acmicpc.net/problem/22866) |
 | 4 | List of Unique Numbers | [BOJ 13144](https://www.acmicpc.net/problem/13144) |
 | 5 | 문자열 게임 2 | [BOJ 20437](https://www.acmicpc.net/problem/20437) |
+
+---
+
+### ✅ 3주차
+
+| 번호 | 문제 이름 | 링크 |
+|------|-----------|------|
+| 1 | 두 용액 | [BOJ 2470](https://www.acmicpc.net/problem/2470) |
+| 2 | 용액 | [BOJ 2467](https://www.acmicpc.net/problem/2467) |
+| 3 | 수열과 쿼리 37 | [BOJ 18435](https://www.acmicpc.net/problem/18436) |
+| 4 | 오름세  | [BOJ 3745](https://www.acmicpc.net/problem/3745) |
+| 5 | 에바쿰 | [BOJ 15967](https://www.acmicpc.net/problem/15967) |
 
 ---
 
