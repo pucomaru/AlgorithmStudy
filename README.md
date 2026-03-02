@@ -1,16 +1,16 @@
 # 알고리즘 풀이
 
-## 📅 2월 문제 목록
+## 📅 3월 문제 목록
 
-### ✅ 4주차
+### ✅ 1주차
 
 | 번호 | 문제 이름 | 링크 |
 |------|-----------|------|
-| 1 | 소트 게임 | [BOJ 1327](https://www.acmicpc.net/problem/1327) |
-| 2 | K번째 최단경로 찾기 | [BOJ 1854](https://www.acmicpc.net/problem/1854) |
-| 3 | 책정리 | [BOJ 1818](https://www.acmicpc.net/problem/1818) |
-| 4 | 면접보는 승범이네  | [BOJ 17835](https://www.acmicpc.net/problem/17835) |
-| 5 | 전기가 부족해 | [BOJ 10423](https://www.acmicpc.net/problem/10423) |
+| 1 | 주식 | [BOJ 12014](https://www.acmicpc.net/problem/12014) |
+| 2 | 구슬 탈출 3 | [BOJ 15644](https://www.acmicpc.net/problem/15644) |
+| 3 | 자동차 공간 | [BOJ 2820](https://www.acmicpc.net/problem/2820) |
+| 4 | 성대나라의 물탱크 | [BOJ 18227](https://www.acmicpc.net/problem/18227) |
+| 5 | 로봇 청소기 | [BOJ 4991](https://www.acmicpc.net/problem/4991) |
 
 ---
 
@@ -156,6 +156,19 @@
 
 ---
 
+### ✅ 4주차
+
+| 번호 | 문제 이름 | 링크 |
+|------|-----------|------|
+| 1 | 소트 게임 | [BOJ 1327](https://www.acmicpc.net/problem/1327) |
+| 2 | K번째 최단경로 찾기 | [BOJ 1854](https://www.acmicpc.net/problem/1854) |
+| 3 | 책정리 | [BOJ 1818](https://www.acmicpc.net/problem/1818) |
+| 4 | 면접보는 승범이네  | [BOJ 17835](https://www.acmicpc.net/problem/17835) |
+| 5 | 전기가 부족해 | [BOJ 10423](https://www.acmicpc.net/problem/10423) |
+
+</details>
+<details>
+<summary>🔽 2026.03월 </summary>
 
 </details>
 
