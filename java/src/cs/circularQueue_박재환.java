@@ -1,4 +1,4 @@
-package jan.week5.cs;
+package cs;
 
 import java.util.Scanner;
 
