@@ -7,13 +7,13 @@ public class RGB거리_이다예 {
     static BufferedReader br;
     static StringTokenizer st;
     static int N;
-    static int result ;
     static List<Home> homes;
+    static int[][] cost;
     public static void main(String[] args) throws IOException {
         br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
-        result = Integer.MAX_VALUE;
         homes = new ArrayList<>();
+        cost = new int[N+1][3];
 
         for (int i =0 ; i < N ; i++){
             st= new StringTokenizer(br.readLine());
@@ -24,38 +24,30 @@ public class RGB거리_이다예 {
             homes.add(new Home(redCost,greenCost,blueCost));
         }
 
-        dfs(0,0,-1);
+        dp();
+
+        int result = Integer.MAX_VALUE ;
+        for(int c = 0 ; c < 3 ; c++){
+            if (result > cost[N][c]) result = cost[N][c];
+        }
         System.out.println(result);
     }
 
-    static void dfs(int now,int cost,int choice){
-        if(cost > result) return;
-        if(now >= homes.size()) {
-            if(cost < result) result = cost;
-            return;
-        }
-
-        Home nowHome = homes.get(now);
-
-        for(int i = 0 ; i < 3 ; i++){
-            if(i==0 && choice != 0){
-                cost += nowHome.red;
-                dfs(now+1,cost,0);
-                cost -= nowHome.red;
-            }
-            if(i==1 && choice != 1){
-                cost += nowHome.green;
-                dfs(now+1,cost,1);
-                cost -= nowHome.green;
-            }
-            if(i==2 && choice != 2){
-                cost += nowHome.blue;
-                dfs(now+1,cost,2);
-                cost -= nowHome.blue;
+    static void dp(){
+        for(int i = 1 ; i < N+1; i++){
+            Home nowHome = homes.get(i-1);
+            for (int j = 0 ; j < 3 ; j++){
+                if(j==0){
+                    cost[i][j] = Math.min(cost[i-1][1],cost[i-1][2]) + nowHome.red;
+                }
+                if(j==1){
+                    cost[i][j] = Math.min(cost[i-1][0],cost[i-1][2]) + nowHome.green;
+                }
+                if(j==2){
+                    cost[i][j] = Math.min(cost[i-1][1],cost[i-1][0]) + nowHome.blue;
+                }
             }
         }
-
-
     }
 
     static class Home{
