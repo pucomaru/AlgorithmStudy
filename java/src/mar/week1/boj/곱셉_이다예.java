@@ -30,7 +30,7 @@ public class 곱셉_이다예 {
 
     static long pow(long a,long b){
 
-        if ( b==1) return a % C;
+        if (b==1) return a % C;
 
         long half = pow(a,b/2);
 
